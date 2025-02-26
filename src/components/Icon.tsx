@@ -9,6 +9,9 @@ const validIconTypes = {
   xrp: true,
   "usd-coin": true,
   tether: true,
+  dogecoin: true,
+  cardano: true,
+  steth: true,
 } as const;
 
 export type IconTypes = keyof typeof validIconTypes;
@@ -34,6 +37,9 @@ const icons: Record<IconTypes, React.FC<React.SVGProps<SVGSVGElement>>> = {
   tether: React.lazy(() => import("/public/icons/tether-usdt-logo.svg")),
   "usd-coin": React.lazy(() => import("/public/icons/usd-coin-usdc-logo.svg")),
   xrp: React.lazy(() => import("/public/icons/xrp-xrp-logo.svg")),
+  dogecoin: React.lazy(() => import("/public/icons/dogecoin-doge-logo.svg")),
+  cardano: React.lazy(() => import("/public/icons/cardano-ada-logo.svg")),
+  steth: React.lazy(() => import("/public/icons/sui-sui-logo.svg")),
 };
 
 // Define the IconProps interface

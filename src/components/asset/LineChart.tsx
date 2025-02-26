@@ -9,9 +9,11 @@ import {
   LinearScale,
   LineElement,
   PointElement,
+  TimeScale,
   Title,
   Tooltip,
 } from "chart.js";
+import "chartjs-adapter-moment";
 import { useMemo } from "react";
 import { Line } from "react-chartjs-2";
 
@@ -23,7 +25,8 @@ ChartJS.register(
   Title,
   Tooltip,
   Filler,
-  Legend
+  Legend,
+  TimeScale
 );
 
 interface LineChartProps {
@@ -48,10 +51,13 @@ const trendStyle = {
 };
 
 const LineChart = ({ chartData, chartLabel, duration }: LineChartProps) => {
+  const latestPrice = Number(chartData[chartData.length - 1].priceUsd);
+  const initialPrice = Number(chartData[0].priceUsd);
+
   const trend =
-    chartData[chartData.length - 1].priceUsd > chartData[0].priceUsd
+    latestPrice > initialPrice
       ? "asc"
-      : chartData[chartData.length - 1].priceUsd < chartData[0].priceUsd
+      : latestPrice < initialPrice
       ? "desc"
       : "stable";
 
@@ -67,17 +73,7 @@ const LineChart = ({ chartData, chartLabel, duration }: LineChartProps) => {
     }
 
     return {
-      labels: chartData.map(
-        (entry) =>
-          /* new Date(entry.time).toLocaleString([], {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-        })*/
-          entry.time
-      ),
+      labels: chartData.map((entry) => entry.time),
       datasets: [
         {
           label: chartLabel,
@@ -93,37 +89,34 @@ const LineChart = ({ chartData, chartLabel, duration }: LineChartProps) => {
 
   // Line chart options
   const options: ChartOptions<"line"> = useMemo(() => {
-    const xAxisLabels = (value: string | number, index: number) => {
-      return [AssetHistoryDuration.day, AssetHistoryDuration.week].includes(
-        duration
-      )
-        ? new Date(value).toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          })
-        : [AssetHistoryDuration.year, AssetHistoryDuration.all].includes(
-            duration
-          )
-        ? new Date(value).toLocaleDateString([], {
-            year: "numeric",
-            month: "short",
-          })
-        : new Date(value).toLocaleDateString([], {
-            month: "short",
-            day: "2-digit",
-          });
-    };
     return {
       responsive: true,
       scales: {
         //XY axis config
         x: {
+          type: "time",
           grid: {
             color: "rgba(255, 255, 255, 0.1)",
           },
+          time: {
+            unit: [
+              AssetHistoryDuration.day,
+              AssetHistoryDuration.week,
+            ].includes(duration)
+              ? "hour"
+              : [AssetHistoryDuration.year, AssetHistoryDuration.all].includes(
+                  duration
+                )
+              ? "month"
+              : "day",
+            displayFormats: {
+              hour: "HH:mm",
+              day: "MMM DD",
+              month: "MMM YYYY",
+            },
+          },
           ticks: {
             color: "#fff",
-            callback: xAxisLabels,
           },
         },
         y: {
@@ -143,7 +136,7 @@ const LineChart = ({ chartData, chartLabel, duration }: LineChartProps) => {
       },
       plugins: {
         tooltip: {
-          mode: "index", // Show tooltips for all datasets at the same index
+          mode: "index",
           intersect: false, // Show tooltips anywhere on the graph
         },
         legend: {
