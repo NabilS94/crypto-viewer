@@ -1,9 +1,9 @@
-import AssetsTable from "@/components/asset/AssetsTable";
-import { GetAllAssetsService } from "@/services/asset";
+import MarketsTable from "@/components/market/MarketsTable";
+import { GetAllExchangesService } from "@/services/exchange";
 import { AxiosError } from "axios";
 
-async function getAllAssetsInfo() {
-  const result = await Promise.resolve(GetAllAssetsService())
+async function getAllExchangesInfo() {
+  const result = await Promise.resolve(GetAllExchangesService())
     .then((res) => {
       return { response: "OK", data: res.data };
     })
@@ -15,12 +15,12 @@ async function getAllAssetsInfo() {
   else throw { result };
 }
 
-export default async function Home() {
-  const data = await getAllAssetsInfo();
+export default async function Markets() {
+  const data = await getAllExchangesInfo();
 
   return (
     <main className="flex-1 p-4 sm:p-6 md:p-8 max-w-7xl mx-auto">
-      <AssetsTable initialData={data} />
+      <MarketsTable initialData={data} />
     </main>
   );
 }
