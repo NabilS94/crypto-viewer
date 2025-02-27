@@ -1,8 +1,8 @@
-"use client";
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import Icon from "./Icon";
+'use client';
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@heroui/navbar';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import Icon from './Icon';
 
 const AppHeader = () => {
   const router = useRouter();
@@ -11,18 +11,15 @@ const AppHeader = () => {
       position="sticky"
       className="bg-gradient-to-r from-navy-500 to-navy-900 text-white p-2 z-50 top-0 shadow-2xl flex flex-row justify-around border-b-3 border-b-primary/20"
       classNames={{
-        wrapper: "flex justify-around pb-2",
-        item: "hover:bg-white/5 p-3 rounded-2xl",
+        wrapper: 'flex justify-around pb-2',
+        item: 'hover:bg-white/5 p-3 rounded-2xl'
       }}
     >
       <NavbarBrand
         className="flex flex-col justify-center items-center cursor-pointer"
-        onClick={() => router.push("/")}
+        onClick={() => router.push('/')}
       >
-        <Icon
-          type={"cryptoViewerLogo"}
-          customSize={{ width: "40px", height: "40px" }}
-        />
+        <Icon type={'cryptoViewerLogo'} customSize={{ width: '40px', height: '40px' }} />
         <h1 className="text-xl font-bold">
           <span className="text-primary">Crypto</span>Viewer
         </h1>

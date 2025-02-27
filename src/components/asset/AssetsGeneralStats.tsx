@@ -1,13 +1,13 @@
-import { calculateTotal, formatValue } from "@/utils/business";
-import { Accordion, AccordionItem } from "@heroui/accordion";
-import { useMemo } from "react";
-import { AssetStatComponent } from "./AssetStat";
+import { calculateTotal, formatValue } from '@/utils/business';
+import { Accordion, AccordionItem } from '@heroui/accordion';
+import { useMemo } from 'react';
+import { AssetStatComponent } from './AssetStat';
 
 const STATS_TITLES = {
-  MARKET_CAP: "Market Cap",
-  EXCHANGE_VOLUME: "Exchange Volume",
-  ASSETS: "Assets",
-  LAST_UPDATED: "Last updated on",
+  MARKET_CAP: 'Market Cap',
+  EXCHANGE_VOLUME: 'Exchange Volume',
+  ASSETS: 'Assets',
+  LAST_UPDATED: 'Last updated on'
 };
 
 export const AssetsGeneralStats = (props: {
@@ -17,31 +17,31 @@ export const AssetsGeneralStats = (props: {
   };
 }) => {
   const totalVolume = useMemo(() => {
-    return calculateTotal(props.assetsData.data, "volumeUsd24Hr");
+    return calculateTotal(props.assetsData.data, 'volumeUsd24Hr');
   }, [props.assetsData.data]);
 
   const marketCap = useMemo(() => {
-    return calculateTotal(props.assetsData.data, "marketCapUsd");
+    return calculateTotal(props.assetsData.data, 'marketCapUsd');
   }, [props.assetsData.data]);
 
   const statsList = useMemo(
     () => [
       {
         title: STATS_TITLES.MARKET_CAP,
-        value: formatValue(marketCap, "$0.00a").toUpperCase(),
+        value: formatValue(marketCap, '$0.00a').toUpperCase()
       },
       {
         title: STATS_TITLES.EXCHANGE_VOLUME,
-        value: formatValue(totalVolume, "$0.00a").toUpperCase(),
+        value: formatValue(totalVolume, '$0.00a').toUpperCase()
       },
       {
         title: STATS_TITLES.ASSETS,
-        value: props.assetsData.data.length.toString(),
+        value: props.assetsData.data.length.toString()
       },
       {
         title: STATS_TITLES.LAST_UPDATED,
-        value: new Date(props.assetsData.timestamp).toLocaleTimeString(),
-      },
+        value: new Date(props.assetsData.timestamp).toLocaleTimeString()
+      }
     ],
     [marketCap, totalVolume, props.assetsData.data, props.assetsData.timestamp]
   );
@@ -67,11 +67,7 @@ export const AssetsGeneralStats = (props: {
       </Accordion>
       <div className="flex flex-row flex-wrap justify-around max-sm:hidden">
         {statsList.map((el, index) => (
-          <AssetStatComponent
-            key={`${el.title}${index}`}
-            title={el.title}
-            statValue={el.value}
-          />
+          <AssetStatComponent key={`${el.title}${index}`} title={el.title} statValue={el.value} />
         ))}
       </div>
     </div>

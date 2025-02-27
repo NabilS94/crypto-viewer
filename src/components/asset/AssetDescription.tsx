@@ -1,14 +1,14 @@
-"use client";
-import { formatValue } from "@/utils/business";
-import { useMemo } from "react";
-import Icon, { IconTypes } from "../Icon";
-import { AssetStatComponent } from "./AssetStat";
+'use client';
+import { formatValue } from '@/utils/business';
+import { useMemo } from 'react';
+import Icon, { IconTypes } from '../Icon';
+import { AssetStatComponent } from './AssetStat';
 
 const STATS_TITLES = {
-  RANK: "Rank",
-  MARKET_CAP: "Market Cap",
-  EXCHANGE_VOLUME: "Volume (24h)",
-  SUPPLY: "Supply",
+  RANK: 'Rank',
+  MARKET_CAP: 'Market Cap',
+  EXCHANGE_VOLUME: 'Volume (24h)',
+  SUPPLY: 'Supply'
 };
 
 export const AssetDescription = (props: { data: API.Res.CryptoAsset }) => {
@@ -17,36 +17,21 @@ export const AssetDescription = (props: { data: API.Res.CryptoAsset }) => {
       { title: STATS_TITLES.RANK, value: `#${props.data.rank}` },
       {
         title: STATS_TITLES.MARKET_CAP,
-        value: formatValue(
-          parseFloat(props.data.marketCapUsd),
-          "$0.00a"
-        ).toUpperCase(),
+        value: formatValue(parseFloat(props.data.marketCapUsd), '$0.00a').toUpperCase()
       },
       {
         title: STATS_TITLES.EXCHANGE_VOLUME,
-        value: formatValue(
-          parseFloat(props.data.volumeUsd24Hr),
-          "$0.00a"
-        ).toUpperCase(),
+        value: formatValue(parseFloat(props.data.volumeUsd24Hr), '$0.00a').toUpperCase()
       },
       {
         title: STATS_TITLES.SUPPLY,
-        value: formatValue(
-          parseFloat(props.data.supply),
-          "0.00a"
-        ).toUpperCase(),
-      },
+        value: formatValue(parseFloat(props.data.supply), '0.00a').toUpperCase()
+      }
     ],
-    [
-      props.data.marketCapUsd,
-      props.data.supply,
-      props.data.volumeUsd24Hr,
-      props.data.rank,
-    ]
+    [props.data.marketCapUsd, props.data.supply, props.data.volumeUsd24Hr, props.data.rank]
   );
 
-  const changePercentage =
-    Math.floor(parseFloat(props.data.changePercent24Hr ?? "") * 100) / 100;
+  const changePercentage = Math.floor(parseFloat(props.data.changePercent24Hr ?? '') * 100) / 100;
 
   return (
     <div className="py-5">
@@ -59,7 +44,7 @@ export const AssetDescription = (props: { data: API.Res.CryptoAsset }) => {
           <div className="flex flex-col items-start">
             <p className="text-white font-semibold text-xl md:text-4xl mb-4">{`${props.data.name} (${props.data.symbol})`}</p>
             <p className="text-white text-sm md:text-2xl text-center font-semibold">
-              {`${formatValue(parseFloat(props.data.priceUsd), "$0,0.00", 6)}`}
+              {`${formatValue(parseFloat(props.data.priceUsd), '$0,0.00', 6)}`}
               <span
                 className={`ml-3 ${
                   changePercentage > 0

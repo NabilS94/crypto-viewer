@@ -1,9 +1,5 @@
-import { Button } from "@heroui/button";
-import {
-  Pagination,
-  PaginationItemRenderProps,
-  PaginationItemType,
-} from "@heroui/pagination";
+import { Button } from '@heroui/button';
+import { Pagination, PaginationItemRenderProps, PaginationItemType } from '@heroui/pagination';
 
 const ChevronIcon = ({ style }: { style?: string }) => {
   return (
@@ -31,7 +27,7 @@ const ChevronIcon = ({ style }: { style?: string }) => {
 const CustomTablePagination = ({
   page,
   pages,
-  onPageSelect,
+  onPageSelect
 }: {
   page: number;
   pages: number;
@@ -44,10 +40,9 @@ const CustomTablePagination = ({
     isActive,
     onNext,
     onPrevious,
-    setPage,
+    setPage
   }: PaginationItemRenderProps) => {
-    const navigBtnStyle =
-      "bg-gray-200 p-1 mx-1 rounded-md sm:p-1 sm:mx-1 [&>svg]:max-sm:w-3";
+    const navigBtnStyle = 'bg-gray-200 p-1 mx-1 rounded-md sm:p-1 sm:mx-1 [&>svg]:max-sm:w-3';
     if (value === PaginationItemType.NEXT) {
       return (
         <Button key={key} className={navigBtnStyle} onPress={onNext}>
@@ -73,8 +68,8 @@ const CustomTablePagination = ({
         key={key}
         ref={ref}
         className={`
-          ${"w-5 h-5 p-0 sm:w-8 sm:h-8 max-sm:text-[10px]"}
-          ${isActive && "bg-gray-200 rounded-2xl"}
+          ${'w-5 h-5 p-0 sm:w-8 sm:h-8 max-sm:text-[10px]'}
+          ${isActive && 'bg-gray-200 rounded-2xl'}
         `}
         onPress={() => setPage(value)}
       >
@@ -93,7 +88,7 @@ const CustomTablePagination = ({
       renderItem={renderItem}
       className="py-4"
       classNames={{
-        wrapper: "[&>span]:hidden",
+        wrapper: '[&>span]:hidden'
       }}
     />
   );

@@ -1,25 +1,25 @@
-import { AssetDescription } from "@/components/asset/AssetDescription";
-import AssetGraph from "@/components/asset/AssetGraph";
-import { GetAssetHistoryService, GetAssetService } from "@/services/asset";
-import { ASSET_HISTORY_DURATION_CONFIG } from "@/utils/constants";
-import { logger } from "@/utils/logger";
-import { AxiosError } from "axios";
+import { AssetDescription } from '@/components/asset/AssetDescription';
+import AssetGraph from '@/components/asset/AssetGraph';
+import { GetAssetHistoryService, GetAssetService } from '@/services/asset';
+import { ASSET_HISTORY_DURATION_CONFIG } from '@/utils/constants';
+import { logger } from '@/utils/logger';
+import { AxiosError } from 'axios';
 
 async function getAssetInfo(assetId: string) {
   const result = await Promise.resolve(GetAssetService({ id: assetId }))
     .then((res) => {
-      return { response: "OK", data: res.data };
+      return { response: 'OK', data: res.data };
     })
     .catch((err: AxiosError) => {
-      return { response: "Error", err: err };
+      return { response: 'Error', err: err };
     });
 
-  if (result.response === "OK" && "data" in result) return result.data;
+  if (result.response === 'OK' && 'data' in result) return result.data;
   else {
-    if ("err" in result)
+    if ('err' in result)
       logger.logError(result.err as Error, {
-        endpoint: "GetAssetService",
-        assetId,
+        endpoint: 'GetAssetService',
+        assetId
       });
     throw { result };
   }
@@ -28,35 +28,31 @@ async function getAssetInfo(assetId: string) {
 async function getAssetHistory(params: API.Req.AssetsHistoryParams) {
   const result = await Promise.resolve(GetAssetHistoryService(params))
     .then((res) => {
-      return { response: "OK", data: res.data };
+      return { response: 'OK', data: res.data };
     })
     .catch((err: AxiosError) => {
-      return { response: "Error", err: err };
+      return { response: 'Error', err: err };
     });
 
-  if (result.response === "OK" && "data" in result) return result.data;
+  if (result.response === 'OK' && 'data' in result) return result.data;
   else {
-    if ("err" in result)
+    if ('err' in result)
       logger.logError(result.err as Error, {
-        endpoint: "GetAssetHistoryService",
-        queryParams: params,
+        endpoint: 'GetAssetHistoryService',
+        queryParams: params
       });
     throw { result };
   }
 }
 
-export default async function Asset({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function Asset({ params }: { params: Promise<{ id: string }> }) {
   const urlParams = await params;
   const assetData = await getAssetInfo(urlParams.id);
 
   const dailyAssetHistory = await getAssetHistory({
     id: urlParams.id,
     interval: ASSET_HISTORY_DURATION_CONFIG.day.interval,
-    duration: ASSET_HISTORY_DURATION_CONFIG.day.duration,
+    duration: ASSET_HISTORY_DURATION_CONFIG.day.duration
   });
 
   return (

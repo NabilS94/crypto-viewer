@@ -1,7 +1,7 @@
-import axiosInstance from "@/services/index";
-import { AxiosResponse } from "axios";
+import axiosInstance from '@/services/index';
+import { AxiosResponse } from 'axios';
 
-const EXCHANGES_ENDPOINT = "/v2/exchanges";
+const EXCHANGES_ENDPOINT = '/v2/exchanges';
 
 const GetAllExchangesService = async (): Promise<
   AxiosResponse<{ data: API.Res.ExchangeMarket[] }>
@@ -9,7 +9,7 @@ const GetAllExchangesService = async (): Promise<
   return axiosInstance.get(`${EXCHANGES_ENDPOINT}`, {
     validateStatus: function (status: number) {
       return [200, 201, 204].includes(status);
-    },
+    }
   });
 };
 

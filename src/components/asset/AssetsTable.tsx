@@ -1,14 +1,14 @@
-"use client";
-import { GetAllAssetsService } from "@/services/asset";
-import { extractAssetRow } from "@/utils/business";
-import { getKeyValue, TableCell } from "@heroui/table";
-import { useQuery } from "@tanstack/react-query";
-import { useCallback, useMemo } from "react";
+'use client';
+import { GetAllAssetsService } from '@/services/asset';
+import { extractAssetRow } from '@/utils/business';
+import { getKeyValue, TableCell } from '@heroui/table';
+import { useQuery } from '@tanstack/react-query';
+import { useCallback, useMemo } from 'react';
 
-import { useRouter } from "next/navigation";
-import Icon, { IconTypes } from "../Icon";
-import TableComponent, { TColumn, TRow } from "../TableComponent";
-import { AssetsGeneralStats } from "./AssetsGeneralStats";
+import { useRouter } from 'next/navigation';
+import Icon, { IconTypes } from '../Icon';
+import TableComponent, { TColumn, TRow } from '../TableComponent';
+import { AssetsGeneralStats } from './AssetsGeneralStats';
 
 interface AssetsTableProps {
   initialData: { data: API.Res.CryptoAsset[]; timestamp: number };
@@ -21,31 +21,31 @@ const getAllAssetsInfo = async () => {
 
 const columns: TColumn[] = [
   {
-    key: "rank",
-    label: "Rank",
-    customStyle: "px-2",
+    key: 'rank',
+    label: 'Rank',
+    customStyle: 'px-2'
   },
   {
-    key: "name",
-    label: "Name",
-    customStyle: "text-left pl-1",
+    key: 'name',
+    label: 'Name',
+    customStyle: 'text-left pl-1'
   },
-  { key: "priceUsd", label: "Price" },
-  { key: "marketCapUsd", label: "Market Cap" },
-  { key: "vwap24Hr", label: "VWAP(24Hr)" },
-  { key: "supply", label: "Supply" },
-  { key: "volumeUsd24Hr", label: "Volume(24Hr)" },
-  { key: "changePercent24Hr", label: "Change(24Hr)" },
+  { key: 'priceUsd', label: 'Price' },
+  { key: 'marketCapUsd', label: 'Market Cap' },
+  { key: 'vwap24Hr', label: 'VWAP(24Hr)' },
+  { key: 'supply', label: 'Supply' },
+  { key: 'volumeUsd24Hr', label: 'Volume(24Hr)' },
+  { key: 'changePercent24Hr', label: 'Change(24Hr)' }
 ];
 
 const AssetsTable = ({ initialData }: AssetsTableProps) => {
   const router = useRouter();
   const { data } = useQuery({
-    queryKey: ["cryptoData"],
+    queryKey: ['cryptoData'],
     queryFn: getAllAssetsInfo,
     initialData: { data: [], timestamp: 0 },
     refetchInterval: 10000,
-    refetchIntervalInBackground: false,
+    refetchIntervalInBackground: false
   });
 
   const rows = useMemo(
@@ -53,48 +53,41 @@ const AssetsTable = ({ initialData }: AssetsTableProps) => {
     [initialData, data.data]
   );
 
-  const renderCell = useCallback(
-    (cell: { item: TRow; key: string }, baseStyle: string) => {
-      const columnKey = cell.key;
-      const value = getKeyValue(cell.item, columnKey);
+  const renderCell = useCallback((cell: { item: TRow; key: string }, baseStyle: string) => {
+    const columnKey = cell.key;
+    const value = getKeyValue(cell.item, columnKey);
 
-      switch (columnKey) {
-        case "name":
-          return (
-            <TableCell className={`${baseStyle} text-left whitespace-normal`}>
-              <div className="flex flex-col items-baseline flex-wrap md:flex-row md:items-center">
-                <Icon
-                  type={cell.item["key"] as IconTypes}
-                  className="w-[20px] h-[20px] sm:w-[30px] sm:h-[30px]"
-                />
-                <div className="flex flex-col ml-3">
-                  <span>{value}</span>
-                  <span className="text-tiny text-thColor">
-                    {cell.item["symbol"]}
-                  </span>
-                </div>
+    switch (columnKey) {
+      case 'name':
+        return (
+          <TableCell className={`${baseStyle} text-left whitespace-normal`}>
+            <div className="flex flex-col items-baseline flex-wrap md:flex-row md:items-center">
+              <Icon
+                type={cell.item['key'] as IconTypes}
+                className="w-[20px] h-[20px] sm:w-[30px] sm:h-[30px]"
+              />
+              <div className="flex flex-col ml-3">
+                <span>{value}</span>
+                <span className="text-tiny text-thColor">{cell.item['symbol']}</span>
               </div>
-            </TableCell>
-          );
+            </div>
+          </TableCell>
+        );
 
-        case "changePercent24Hr":
-          const isPositive = Number(value) > 0;
-          return (
-            <TableCell
-              className={`${baseStyle} ${
-                isPositive ? "text-success" : "text-red-500"
-              } font-semibold`}
-            >
-              {value + "%"}
-            </TableCell>
-          );
-
-        default:
-          return <TableCell className={baseStyle}>{value}</TableCell>;
+      case 'changePercent24Hr': {
+        return (
+          <TableCell
+            className={`${baseStyle} ${Number(value) > 0 ? 'text-success' : 'text-red-500'} font-semibold`}
+          >
+            {value + '%'}
+          </TableCell>
+        );
       }
-    },
-    []
-  );
+
+      default:
+        return <TableCell className={baseStyle}>{value}</TableCell>;
+    }
+  }, []);
 
   return (
     <>

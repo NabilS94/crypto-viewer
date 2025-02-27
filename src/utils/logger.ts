@@ -5,10 +5,10 @@ export const logger = {
       timestamp,
       message: error.message,
       stack: error.stack,
-      context,
+      context
     };
 
     // Log to console (for development)
-    console.error("Error:", { error, errorDetails });
-  },
+    console.error('Error:', { error, errorDetails });
+  }
 };
