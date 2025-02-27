@@ -1,4 +1,4 @@
-import { calculateTotal, formatValue } from '@/utils/business';
+import { calculateAssetPropTotal, formatValue } from '@/utils/business';
 import { Accordion, AccordionItem } from '@heroui/accordion';
 import { useMemo } from 'react';
 import { AssetStatComponent } from './AssetStat';
@@ -17,11 +17,11 @@ export const AssetsGeneralStats = (props: {
   };
 }) => {
   const totalVolume = useMemo(() => {
-    return calculateTotal(props.assetsData.data, 'volumeUsd24Hr');
+    return calculateAssetPropTotal(props.assetsData.data, 'volumeUsd24Hr');
   }, [props.assetsData.data]);
 
   const marketCap = useMemo(() => {
-    return calculateTotal(props.assetsData.data, 'marketCapUsd');
+    return calculateAssetPropTotal(props.assetsData.data, 'marketCapUsd');
   }, [props.assetsData.data]);
 
   const statsList = useMemo(
@@ -48,6 +48,7 @@ export const AssetsGeneralStats = (props: {
 
   return (
     <div className="py-5">
+      {/**Accordion component is only visible on small screens */}
       <Accordion className="sm:hidden">
         <AccordionItem
           aria-label="Market stats"

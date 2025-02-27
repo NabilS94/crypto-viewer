@@ -24,7 +24,17 @@ export interface TRow {
 interface TableComponentProps {
   columns: TColumn[];
   rows: TRow[];
+  /**
+   * Custom render function for table cells.
+   * @param cell - Object containing the row item and column key.
+   * @param baseStyle - Base CSS class for the cell.
+   * @returns A React element to render in the cell.
+   */
   customRenderCell?: (cell: { item: TRow; key: string }, baseStyle: string) => JSX.Element;
+  /**
+   * Callback function triggered when a row is clicked.
+   * @param key - The key of the clicked row.
+   */
   onRowClick?: (key: Key) => void;
 }
 

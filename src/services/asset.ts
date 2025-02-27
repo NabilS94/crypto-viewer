@@ -3,6 +3,9 @@ import { AxiosResponse } from 'axios';
 
 const ASSETS_ENDPOINT = '/v2/assets';
 
+/**
+ * Fetches all cryptocurrency assets.
+ * */
 const GetAllAssetsService = async (
   params?: API.Req.AssetsParams
 ): Promise<AxiosResponse<{ data: API.Res.CryptoAsset[]; timestamp: number }>> => {
@@ -22,6 +25,9 @@ const GetAllAssetsService = async (
   });
 };
 
+/**
+ * Fetches single cryptocurrency asset.
+ * */
 const GetAssetService = async (params: {
   id: string;
 }): Promise<AxiosResponse<{ data: API.Res.CryptoAsset; timestamp: number }>> => {
@@ -32,6 +38,9 @@ const GetAssetService = async (params: {
   });
 };
 
+/**
+ * Fetches single asset history
+ * */
 const GetAssetHistoryService = async (
   params: API.Req.AssetsHistoryParams
 ): Promise<AxiosResponse<{ data: API.Res.CryptoAssetHistory[] }>> => {
@@ -50,9 +59,12 @@ const GetAssetHistoryService = async (
   });
 };
 
+/**
+ * Fetches asset related market info.
+ * */
 const GetAssetMarketInfoService = async (
   params: API.Req.AssetsMarketsParams
-): Promise<AxiosResponse<{ data: API.Res.CryptoAsset; timestamp: number }>> => {
+): Promise<AxiosResponse<{ data: API.Res.CryptoAssetMarket[]; timestamp: number }>> => {
   return axiosInstance.get(`${ASSETS_ENDPOINT}/${params.id}/markets`, {
     params: {
       ...(params?.limit && { limit: params.limit }),

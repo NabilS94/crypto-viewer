@@ -1,7 +1,7 @@
-import { calculateTotal } from '@/utils/business';
+import { calculateAssetPropTotal } from '@/utils/business';
 import { describe, expect, it } from 'vitest';
 
-describe('calculateTotal', () => {
+describe('calculateAssetPropTotal', () => {
   it('should calculate the total value of a key in assets', () => {
     const assets = [
       {
@@ -30,12 +30,12 @@ describe('calculateTotal', () => {
       }
     ];
 
-    const total = calculateTotal(assets, 'priceUsd');
+    const total = calculateAssetPropTotal(assets, 'priceUsd');
     expect(total).toBe(53000);
   });
 
   it('should return 0 for an empty array', () => {
-    const total = calculateTotal([], 'priceUsd');
+    const total = calculateAssetPropTotal([], 'priceUsd');
     expect(total).toBe(0);
   });
 });

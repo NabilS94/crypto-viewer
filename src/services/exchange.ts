@@ -3,6 +3,9 @@ import { AxiosResponse } from 'axios';
 
 const EXCHANGES_ENDPOINT = '/v2/exchanges';
 
+/**
+ * Fetches all cryptocurrency exchanges .
+ * */
 const GetAllExchangesService = async (): Promise<
   AxiosResponse<{ data: API.Res.ExchangeMarket[] }>
 > => {

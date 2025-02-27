@@ -1,36 +1,37 @@
 import { AssetHistoryDuration, AssetHistoryIntervals } from '@/typings/models';
 import { getTimestamp } from './business';
 
-export const primaryColor = '#16e9d3';
-export const backColor = 'linear-gradient(to right, #1e2a54 0%, #050a1d 100%)';
-export const secondaryColor = 'linear-gradient(to right, #215cb4 0%, #215cb4 100%)';
-
+/**
+ * Configuration object for asset history durations and their respective settings.
+ * Defines time ranges and intervals for fetching asset history data.
+ * Each property represents a different time duration option.
+ */
 export const ASSET_HISTORY_DURATION_CONFIG = {
   day: {
     id: AssetHistoryDuration.day,
     label: AssetHistoryDuration.day,
-    interval: AssetHistoryIntervals.M1,
+    interval: AssetHistoryIntervals.M1, // 1 minute interval for data points
     duration: {
       start: Date.now() - 24 * 3600 * 1000, //timestamp of yesterday
-      end: Date.now() // timestamp of now
+      end: Date.now()
     }
   },
   week: {
     id: AssetHistoryDuration.week,
     label: AssetHistoryDuration.week,
-    interval: AssetHistoryIntervals.M30,
+    interval: AssetHistoryIntervals.M30, // 30 minutes interval for data points
     duration: {
       start: Date.now() - 7 * 24 * 3600 * 1000, //timestamp of a week ago
-      end: Date.now() // timestamp of now
+      end: Date.now()
     }
   },
   month: {
     id: AssetHistoryDuration.month,
     label: AssetHistoryDuration.month,
-    interval: AssetHistoryIntervals.H2,
+    interval: AssetHistoryIntervals.H2, // 2 hours interval for data points
     duration: {
       start: getTimestamp('month', 1), //timestamp of a month ago
-      end: Date.now() // timestamp of now
+      end: Date.now()
     }
   },
   threeMonths: {
@@ -39,7 +40,7 @@ export const ASSET_HISTORY_DURATION_CONFIG = {
     interval: AssetHistoryIntervals.H6,
     duration: {
       start: getTimestamp('month', 3), //timestamp of 3 months ago
-      end: Date.now() // timestamp of now
+      end: Date.now()
     }
   },
   sixMonths: {
@@ -48,7 +49,7 @@ export const ASSET_HISTORY_DURATION_CONFIG = {
     interval: AssetHistoryIntervals.D1,
     duration: {
       start: getTimestamp('month', 6), //timestamp of 6 months ago
-      end: Date.now() // timestamp of now
+      end: Date.now()
     }
   },
   year: {
@@ -57,7 +58,7 @@ export const ASSET_HISTORY_DURATION_CONFIG = {
     interval: AssetHistoryIntervals.D1,
     duration: {
       start: getTimestamp('year', 1), //timestamp of a year agp
-      end: Date.now() // timestamp of now
+      end: Date.now()
     }
   },
   all: {
@@ -65,8 +66,8 @@ export const ASSET_HISTORY_DURATION_CONFIG = {
     label: AssetHistoryDuration.all,
     interval: AssetHistoryIntervals.D1,
     duration: {
-      start: getTimestamp('year', 10), //timestamp of 10 years ago - limited by API
-      end: Date.now() // timestamp of now
+      start: getTimestamp('year', 10), //timestamp of 10 years ago - limited by CoinCap API
+      end: Date.now()
     }
   }
 };
