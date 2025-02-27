@@ -66,7 +66,7 @@ const AssetGraph = ({
       <select
         id="top-crypto"
         name="cryptos"
-        className="mb-5 bg-white text-navy-900 outline-0 w-90 p-1 rounded-xs"
+        className="mb-5 bg-white text-navy-900 outline-0 p-1 rounded-xs"
         value={assetId}
         onChange={(e) => router.replace("/asset/" + e.target.value)}
       >
@@ -89,7 +89,7 @@ const AssetGraph = ({
         }
         classNames={{
           tabList: "gap-1 w-full relative rounded-none p-0",
-          tab: "max-w-fit text-tiny px-2 py-1 sm:px-4 sm:py-2 sm:text-xs text-white bg-navy-500 rounded-md data-[selected=true]:bg-white focus-visible:outline-0",
+          tab: "max-w-fit text-tiny px-2 py-1 text-white bg-navy-500 rounded-md data-[selected=true]:bg-white focus-visible:outline-0 sm:px-4 sm:py-2 sm:text-xs",
           tabContent: "group-data-[selected=true]:text-navy-500",
         }}
       >

@@ -1,5 +1,6 @@
 import MarketsTable from "@/components/market/MarketsTable";
 import { GetAllExchangesService } from "@/services/exchange";
+import { logger } from "@/utils/logger";
 import { AxiosError } from "axios";
 
 async function getAllExchangesInfo() {
@@ -12,15 +13,21 @@ async function getAllExchangesInfo() {
     });
 
   if (result.response === "OK" && "data" in result) return result.data;
-  else throw { result };
+  else {
+    if ("err" in result)
+      logger.logError(result.err as Error, {
+        endpoint: "GetAllExchangesService",
+      });
+    throw { result };
+  }
 }
 
 export default async function Markets() {
   const data = await getAllExchangesInfo();
 
   return (
-    <main className="flex-1 p-4 sm:p-6 md:p-8 max-w-7xl mx-auto">
+    <>
       <MarketsTable initialData={data} />
-    </main>
+    </>
   );
 }

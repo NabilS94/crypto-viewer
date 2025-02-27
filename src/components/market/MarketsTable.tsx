@@ -17,6 +17,22 @@ const getAllExchangesInfo = async () => {
   return response.data;
 };
 
+const columns: TColumn[] = [
+  {
+    key: "rank",
+    label: "Rank",
+    customStyle: "px-2",
+  },
+  {
+    key: "name",
+    label: "Name",
+    customStyle: "text-left pl-1",
+  },
+  { key: "tradingPairs", label: "Trading Pairs" },
+  { key: "volumeUsd", label: "Volume(24Hr)" },
+  { key: "percentTotalVolume", label: "Total(%)" },
+];
+
 const MarketsTable = ({ initialData }: MarketsTableProps) => {
   const router = useRouter();
   const { data } = useQuery({
@@ -30,25 +46,6 @@ const MarketsTable = ({ initialData }: MarketsTableProps) => {
   const rows = useMemo(
     () => extractCryptoMarketRow(data.data ?? initialData.data),
     [initialData, data.data]
-  );
-
-  const columns: TColumn[] = useMemo(
-    () => [
-      {
-        key: "rank",
-        label: "Rank",
-        customStyle: "px-2",
-      },
-      {
-        key: "name",
-        label: "Name",
-        customStyle: "text-left pl-1",
-      },
-      { key: "tradingPairs", label: "Trading Pairs" },
-      { key: "volumeUsd", label: "Volume(24Hr)" },
-      { key: "percentTotalVolume", label: "Total(%)" },
-    ],
-    []
   );
 
   const renderCell = useCallback(

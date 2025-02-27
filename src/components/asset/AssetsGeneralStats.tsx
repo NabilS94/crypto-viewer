@@ -1,7 +1,7 @@
 import { calculateTotal, formatValue } from "@/utils/business";
 import { Accordion, AccordionItem } from "@heroui/accordion";
 import { useMemo } from "react";
-import { StatComponent } from "./AssetStat";
+import { AssetStatComponent } from "./AssetStat";
 
 const STATS_TITLES = {
   MARKET_CAP: "Market Cap",
@@ -56,7 +56,7 @@ export const AssetsGeneralStats = (props: {
           role="region"
         >
           {statsList.map((el, index) => (
-            <StatComponent
+            <AssetStatComponent
               key={`${el.title}${index}`}
               title={el.title}
               statValue={el.value}
@@ -67,7 +67,7 @@ export const AssetsGeneralStats = (props: {
       </Accordion>
       <div className="flex flex-row flex-wrap justify-around max-sm:hidden">
         {statsList.map((el, index) => (
-          <StatComponent
+          <AssetStatComponent
             key={`${el.title}${index}`}
             title={el.title}
             statValue={el.value}

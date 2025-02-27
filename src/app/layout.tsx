@@ -38,7 +38,11 @@ export default function RootLayout({
         }
       >
         <AppHeader />
-        <Providers>{children}</Providers>
+        <Providers>
+          <main className="flex-1 p-4 sm:p-6 md:p-8 max-w-7xl mx-auto">
+            {children}
+          </main>
+        </Providers>
       </body>
     </html>
   );

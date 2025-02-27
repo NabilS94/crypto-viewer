@@ -19,12 +19,31 @@ const getAllAssetsInfo = async () => {
   return response.data;
 };
 
+const columns: TColumn[] = [
+  {
+    key: "rank",
+    label: "Rank",
+    customStyle: "px-2",
+  },
+  {
+    key: "name",
+    label: "Name",
+    customStyle: "text-left pl-1",
+  },
+  { key: "priceUsd", label: "Price" },
+  { key: "marketCapUsd", label: "Market Cap" },
+  { key: "vwap24Hr", label: "VWAP(24Hr)" },
+  { key: "supply", label: "Supply" },
+  { key: "volumeUsd24Hr", label: "Volume(24Hr)" },
+  { key: "changePercent24Hr", label: "Change(24Hr)" },
+];
+
 const AssetsTable = ({ initialData }: AssetsTableProps) => {
   const router = useRouter();
   const { data } = useQuery({
     queryKey: ["cryptoData"],
     queryFn: getAllAssetsInfo,
-    initialData,
+    initialData: { data: [], timestamp: 0 },
     refetchInterval: 10000,
     refetchIntervalInBackground: false,
   });
@@ -32,28 +51,6 @@ const AssetsTable = ({ initialData }: AssetsTableProps) => {
   const rows = useMemo(
     () => extractAssetRow(data.data ?? initialData.data),
     [initialData, data.data]
-  );
-
-  const columns: TColumn[] = useMemo(
-    () => [
-      {
-        key: "rank",
-        label: "Rank",
-        customStyle: "px-2",
-      },
-      {
-        key: "name",
-        label: "Name",
-        customStyle: "text-left pl-1",
-      },
-      { key: "priceUsd", label: "Price" },
-      { key: "marketCapUsd", label: "Market Cap" },
-      { key: "vwap24Hr", label: "VWAP(24Hr)" },
-      { key: "supply", label: "Supply" },
-      { key: "volumeUsd24Hr", label: "Volume(24Hr)" },
-      { key: "changePercent24Hr", label: "Change(24Hr)" },
-    ],
-    []
   );
 
   const renderCell = useCallback(

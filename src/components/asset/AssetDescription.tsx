@@ -2,7 +2,7 @@
 import { formatValue } from "@/utils/business";
 import { useMemo } from "react";
 import Icon, { IconTypes } from "../Icon";
-import { StatComponent } from "./AssetStat";
+import { AssetStatComponent } from "./AssetStat";
 
 const STATS_TITLES = {
   RANK: "Rank",
@@ -73,7 +73,7 @@ export const AssetDescription = (props: { data: API.Res.CryptoAsset }) => {
           </div>
         </div>
         {statsList.map((el, index) => (
-          <StatComponent
+          <AssetStatComponent
             key={`${el.title}${index}`}
             title={el.title}
             statValue={el.value}

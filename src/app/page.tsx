@@ -1,5 +1,6 @@
 import AssetsTable from "@/components/asset/AssetsTable";
 import { GetAllAssetsService } from "@/services/asset";
+import { logger } from "@/utils/logger";
 import { AxiosError } from "axios";
 
 async function getAllAssetsInfo() {
@@ -12,15 +13,17 @@ async function getAllAssetsInfo() {
     });
 
   if (result.response === "OK" && "data" in result) return result.data;
-  else throw { result };
+  else {
+    if ("err" in result)
+      logger.logError(result.err as Error, {
+        endpoint: "GetAllAssetsService",
+      });
+    throw { result };
+  }
 }
 
 export default async function Home() {
   const data = await getAllAssetsInfo();
 
-  return (
-    <main className="flex-1 p-4 sm:p-6 md:p-8 max-w-7xl mx-auto">
-      <AssetsTable initialData={data} />
-    </main>
-  );
+  return <AssetsTable initialData={data} />;
 }

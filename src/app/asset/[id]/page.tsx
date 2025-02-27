@@ -2,6 +2,7 @@ import { AssetDescription } from "@/components/asset/AssetDescription";
 import AssetGraph from "@/components/asset/AssetGraph";
 import { GetAssetHistoryService, GetAssetService } from "@/services/asset";
 import { ASSET_HISTORY_DURATION_CONFIG } from "@/utils/constants";
+import { logger } from "@/utils/logger";
 import { AxiosError } from "axios";
 
 async function getAssetInfo(assetId: string) {
@@ -14,7 +15,14 @@ async function getAssetInfo(assetId: string) {
     });
 
   if (result.response === "OK" && "data" in result) return result.data;
-  else throw { result };
+  else {
+    if ("err" in result)
+      logger.logError(result.err as Error, {
+        endpoint: "GetAssetService",
+        assetId,
+      });
+    throw { result };
+  }
 }
 
 async function getAssetHistory(params: API.Req.AssetsHistoryParams) {
@@ -27,7 +35,14 @@ async function getAssetHistory(params: API.Req.AssetsHistoryParams) {
     });
 
   if (result.response === "OK" && "data" in result) return result.data;
-  else throw { result };
+  else {
+    if ("err" in result)
+      logger.logError(result.err as Error, {
+        endpoint: "GetAssetHistoryService",
+        queryParams: params,
+      });
+    throw { result };
+  }
 }
 
 export default async function Asset({
@@ -45,13 +60,13 @@ export default async function Asset({
   });
 
   return (
-    <main className="flex-1 p-4 sm:p-6 md:p-8 max-w-7xl mx-auto">
+    <>
       <AssetDescription data={assetData.data} />
       <AssetGraph
         initialData={dailyAssetHistory}
         assetName={assetData.data.name}
         assetId={assetData.data.id}
       />
-    </main>
+    </>
   );
 }
