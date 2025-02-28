@@ -12,7 +12,8 @@
     "format": "prettier --check .",
     "format:fix": "prettier --write --list-different .",
     "prepare": "husky",
-    "typing": "tsc --project tsconfig.json --pretty --noEmit"
+    "typing": "tsc --project tsconfig.json --pretty --noEmit",
+    "postinstall": "npm install --os=linux --cpu=x64 sharp"
   },
   "dependencies": {
     "@heroui/accordion": "^2.2.11",
