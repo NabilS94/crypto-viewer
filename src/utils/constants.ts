@@ -12,7 +12,7 @@ export const ASSET_HISTORY_DURATION_CONFIG = {
     label: AssetHistoryDuration.day,
     interval: AssetHistoryIntervals.M1, // 1 minute interval for data points
     duration: {
-      start: Date.now() - 24 * 3600 * 1000, //timestamp of yesterday
+      start: Date.now() - 24 * 3500 * 1000, //timestamp of yesterday
       end: Date.now()
     }
   },

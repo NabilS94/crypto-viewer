@@ -4,7 +4,7 @@ import { Button } from '@heroui/button';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import pic from '../../public/images/error-illustration.jpg';
+import pic from '../../public/images/error-illustration.png';
 
 const Error = ({ error }: { error: Error & { digest?: string }; reset: () => void }) => {
   const router = useRouter();
@@ -14,7 +14,7 @@ const Error = ({ error }: { error: Error & { digest?: string }; reset: () => voi
   }, [error]);
 
   return (
-    <div className="flex flex-1 flex-col mx-auto text-white items-center my-14">
+    <div className="flex flex-col mx-auto text-white items-center my-14">
       <Image src={pic} alt="website error" width={250} height={250} loading="lazy" />
       <h1 className="text-4xl font-bold mb-4">Ooups something went wrong!</h1>
       <p className="mb-4">Try to refresh the page or try again later</p>

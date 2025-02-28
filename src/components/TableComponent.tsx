@@ -1,4 +1,5 @@
 'use client';
+import { Pagination } from '@heroui/pagination';
 import {
   getKeyValue,
   Table,
@@ -9,7 +10,6 @@ import {
   TableRow
 } from '@heroui/table';
 import { JSX, Key, useMemo, useState } from 'react';
-import CustomTablePagination from './CustomTablePagination';
 
 export interface TColumn {
   key: string;
@@ -52,13 +52,12 @@ const TableComponent = ({ rows, columns, customRenderCell, onRowClick }: TableCo
     return rows.slice(start, end);
   }, [page, rows]);
 
-  const responsiveCellStyle =
-    columns.length > 5 ? 'last:max-sm:hidden nth-last-[2]:max-sm:hidden' : '';
+  const responsiveCellStyle = columns.length > 5 ? 'last:max-sm:hidden' : '';
   const baseCellStyle = `
     py-4 text-center text-xs sm:text-sm md:text-base lg:text-base text-navy-500 truncate ${responsiveCellStyle}`;
 
   return (
-    <div className="overflow-x-auto w-full">
+    <div className="w-full">
       <Table
         aria-label="Crypto info table"
         className="w-full" // Remove min-w-[600px] and let the table grow dynamically
@@ -70,11 +69,15 @@ const TableComponent = ({ rows, columns, customRenderCell, onRowClick }: TableCo
         }}
         onRowAction={onRowClick}
         bottomContent={
-          <div className="flex w-full justify-center">
-            <CustomTablePagination
+          <div className="flex w-full justify-center mb-3">
+            <Pagination
+              isCompact
+              showControls
+              showShadow
+              color="secondary"
               page={page}
-              pages={pages}
-              onPageSelect={(page) => setPage(page)}
+              total={pages}
+              onChange={(page) => setPage(page)}
             />
           </div>
         }

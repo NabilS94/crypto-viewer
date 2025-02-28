@@ -2,6 +2,7 @@
 import { GetAssetHistoryService } from '@/services/asset';
 
 import { ASSET_HISTORY_DURATION_CONFIG } from '@/utils/constants';
+import { Spinner } from '@heroui/spinner';
 import { Tab, Tabs } from '@heroui/tabs';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
@@ -48,7 +49,7 @@ const AssetGraph = ({
   const router = useRouter();
   const [assetHistoryInterval, setHistoryInterval] = useState(assetDurationItems[0]);
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['cryptoHistory', assetId, assetHistoryInterval],
     queryFn: () =>
       getAssetHistory({
@@ -59,39 +60,48 @@ const AssetGraph = ({
     initialData
   });
 
+  if (isLoading)
+    return (
+      <div className="flex items-center justify-center">
+        <Spinner color="primary" size="lg" />
+      </div>
+    );
+
   return (
     <div className="bg-[#343961] mt-5 p-3 rounded-2xl sm:ml-7 sm:mr-3 lg:ml-16 lg:mr-12">
-      <select
-        id="top-crypto"
-        name="cryptos"
-        className="mb-5 bg-white text-navy-900 outline-0 p-1 rounded-xs"
-        value={assetId}
-        onChange={(e) => router.replace('/asset/' + e.target.value)}
-      >
-        {topCryptoCurrencies.map((el) => {
-          return (
-            <option key={el.key} value={el.key}>
-              {el.label}
-            </option>
-          );
-        })}
-      </select>
-      <Tabs
-        aria-label="Dynamic tabs"
-        items={assetDurationItems}
-        onSelectionChange={(key) =>
-          setHistoryInterval(
-            assetDurationItems.find((el) => el.id === key) ?? assetDurationItems[0]
-          )
-        }
-        classNames={{
-          tabList: 'gap-1 w-full relative rounded-none p-0',
-          tab: 'max-w-fit text-tiny px-2 py-1 text-white bg-navy-500 rounded-md data-[selected=true]:bg-white focus-visible:outline-0 sm:px-4 sm:py-2 sm:text-xs',
-          tabContent: 'group-data-[selected=true]:text-navy-500'
-        }}
-      >
-        {(item) => <Tab key={item.id} title={item.label} />}
-      </Tabs>
+      <div className="flex flex-col">
+        <select
+          id="top-crypto"
+          name="cryptos"
+          className="mb-5 bg-white text-navy-900 outline-0 p-1 rounded-xs w-fit"
+          value={assetId}
+          onChange={(e) => router.replace('/asset/' + e.target.value)}
+        >
+          {topCryptoCurrencies.map((el) => {
+            return (
+              <option key={el.key} value={el.key}>
+                {el.label}
+              </option>
+            );
+          })}
+        </select>
+        <Tabs
+          aria-label="Dynamic tabs"
+          items={assetDurationItems}
+          onSelectionChange={(key) =>
+            setHistoryInterval(
+              assetDurationItems.find((el) => el.id === key) ?? assetDurationItems[0]
+            )
+          }
+          classNames={{
+            tabList: 'bg-transparent',
+            tab: 'bg-navy-500 rounded-md data-[selected=true]:bg-white focus-visible:outline-0 sm:px-4 sm:py-2 sm:text-xs',
+            tabContent: 'group-data-[selected=true]:text-navy-500 text-white'
+          }}
+        >
+          {(item) => <Tab key={item.id} title={item.label} />}
+        </Tabs>
+      </div>
       <LineChart
         chartData={data.data.map((el) => ({
           priceUsd: el.priceUsd,

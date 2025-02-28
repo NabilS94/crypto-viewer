@@ -52,15 +52,19 @@ export const calculateAssetPropTotal = (
  * @returns Array of formatted market objects
  */
 export const extractCryptoMarketRow = (markets: API.Res.ExchangeMarket[]) =>
-  markets.map((market) => ({
-    key: market.exchangeId,
-    rank: market.rank,
-    name: market.name,
-    percentTotalVolume: (Math.floor(parseFloat(market.percentTotalVolume) * 100) / 100).toFixed(2),
-    tradingPairs: market.tradingPairs,
-    volumeUsd: formatValue(parseFloat(market.volumeUsd), '$0.00a'),
-    exchangeUrl: market.exchangeUrl
-  }));
+  markets
+    .map((market) => ({
+      key: market.exchangeId,
+      rank: market.rank,
+      name: market.name,
+      percentTotalVolume: (Math.floor(parseFloat(market.percentTotalVolume) * 100) / 100).toFixed(
+        2
+      ),
+      tradingPairs: market.tradingPairs,
+      volumeUsd: formatValue(parseFloat(market.volumeUsd), '$0.00a'),
+      exchangeUrl: market.exchangeUrl
+    }))
+    .sort((a, b) => Number(a.rank) - Number(b.rank));
 
 /**
  * Calculates timestamp for a date in the past based on months or years

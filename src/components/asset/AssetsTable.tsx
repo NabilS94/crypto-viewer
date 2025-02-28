@@ -1,6 +1,7 @@
 'use client';
 import { GetAllAssetsService } from '@/services/asset';
 import { extractAssetRow } from '@/utils/business';
+import { Spinner } from '@heroui/spinner';
 import { getKeyValue, TableCell } from '@heroui/table';
 import { useQuery } from '@tanstack/react-query';
 import { useCallback, useMemo } from 'react';
@@ -40,10 +41,10 @@ const columns: TColumn[] = [
 
 const AssetsTable = ({ initialData }: AssetsTableProps) => {
   const router = useRouter();
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['cryptoData'],
     queryFn: getAllAssetsInfo,
-    initialData: { data: [], timestamp: 0 },
+    initialData,
     refetchInterval: 10000,
     refetchIntervalInBackground: false
   });
@@ -88,6 +89,13 @@ const AssetsTable = ({ initialData }: AssetsTableProps) => {
         return <TableCell className={baseStyle}>{value}</TableCell>;
     }
   }, []);
+
+  if (isLoading)
+    return (
+      <div className="flex items-center justify-center">
+        <Spinner color="primary" size="lg" />
+      </div>
+    );
 
   return (
     <>

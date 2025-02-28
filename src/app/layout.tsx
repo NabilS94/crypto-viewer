@@ -32,11 +32,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={'bg-gradient-to-r from-navy-500 to-navy-900' + ` ${lato.variable}`}>
-        <AppHeader />
-        <Providers>
-          <main className="flex-1 p-4 sm:p-6 md:p-8 max-w-7xl mx-auto">{children}</main>
-        </Providers>
+      <body>
+        <div
+          className={`w-full h-full bg-gradient-to-r from-navy-500 to-navy-900 overflow-auto ${lato.variable}`}
+        >
+          <AppHeader />
+          <Providers>
+            <main className="p-4 sm:p-6 md:p-8 max-w-7xl mx-auto">{children}</main>
+          </Providers>
+        </div>
       </body>
     </html>
   );

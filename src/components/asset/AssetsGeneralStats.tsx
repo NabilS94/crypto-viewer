@@ -49,13 +49,11 @@ export const AssetsGeneralStats = (props: {
   return (
     <div className="py-5">
       {/**Accordion component is only visible on small screens */}
-      <Accordion className="sm:hidden">
-        <AccordionItem
-          aria-label="Market stats"
-          title="Market Stats"
-          className="sm:hidden text-white text-left text-lg"
-          role="region"
-        >
+      <Accordion
+        className="sm:hidden"
+        itemClasses={{ title: 'sm:hidden text-white text-left text-lg' }}
+      >
+        <AccordionItem aria-label="Market stats" title="Market Stats" role="region">
           {statsList.map((el, index) => (
             <AssetStatComponent
               key={`${el.title}${index}`}
