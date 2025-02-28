@@ -2,6 +2,8 @@
 
 A Next.js application that allows users to view cryptocurrency price trends, current prices, and other relevant information using the CoinCap API. The app includes interactive charts, a table of popular cryptocurrencies, customizable time periods for price history and a table of popular cryptocurrencies exchange markets.
 
+Live demo: [https://crypto-viewer-phi-three.vercel.app/](https://crypto-viewer-phi-three.vercel.app/)
+
 ---
 
 ## Features
