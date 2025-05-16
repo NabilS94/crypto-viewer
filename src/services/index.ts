@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_KEY = process.env.NEXT_PUBLIC_COINCAP_API_KEY;
+const API_KEY = process.env.COINCAP_API_KEY;
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_COINCAP_API_BASE_URL,

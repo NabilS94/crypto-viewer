@@ -57,7 +57,7 @@ Live demo: [https://crypto-viewer-phi-three.vercel.app/](https://crypto-viewer-p
 - Add the following environment variable:
   ```bash
   NEXT_PUBLIC_COINCAP_API_BASE_URL=https://rest.coincap.io
-  NEXT_PUBLIC_COINCAP_API_KEY=YOUR_API_KEY
+  COINCAP_API_KEY=YOUR_API_KEY
   ```
 
 4. **Run the development server**:
