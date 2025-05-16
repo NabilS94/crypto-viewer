@@ -39,7 +39,6 @@ const MarketsTable = ({ initialData }: MarketsTableProps) => {
     queryKey: ['cryptoMarketsData'],
     queryFn: getAllExchangesInfo,
     initialData,
-    refetchInterval: 10000,
     refetchIntervalInBackground: false
   });
 

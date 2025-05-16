@@ -1,7 +1,7 @@
 import axiosInstance from '@/services/index';
 import { AxiosResponse } from 'axios';
 
-const ASSETS_ENDPOINT = '/v3/assets';
+const ASSETS_ENDPOINT = '/assets';
 
 /**
  * Fetches all cryptocurrency assets.

@@ -1,7 +1,7 @@
 import axiosInstance from '@/services/index';
 import { AxiosResponse } from 'axios';
 
-const EXCHANGES_ENDPOINT = '/v3/exchanges';
+const EXCHANGES_ENDPOINT = '/exchanges';
 
 /**
  * Fetches all cryptocurrency exchanges .

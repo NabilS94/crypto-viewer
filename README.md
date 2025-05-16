@@ -52,16 +52,17 @@ Live demo: [https://crypto-viewer-phi-three.vercel.app/](https://crypto-viewer-p
 
 3. **Set up environment variables**:
 
-- Create a `.env.local` file in the root directory.
+- Create a `.env` file in the server directory.
 
 - Add the following environment variable:
   ```bash
-  NEXT_PUBLIC_COINCAP_API_BASE_URL=https://rest.coincap.io
-  COINCAP_API_KEY=YOUR_API_KEY
+  COINCAP_API_BASE_URL=https://rest.coincap.io/v3
+  COINCAP_API_KEY=your_api_key
   ```
 
 4. **Run the development server**:
    ```bash
+   npm run server
    npm run dev
    ```
 5. **Open the app**:

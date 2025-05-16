@@ -45,7 +45,7 @@ const AssetsTable = ({ initialData }: AssetsTableProps) => {
     queryKey: ['cryptoData'],
     queryFn: getAllAssetsInfo,
     initialData,
-    refetchInterval: 10000,
+    refetchInterval: 60000,
     refetchIntervalInBackground: false
   });
 
